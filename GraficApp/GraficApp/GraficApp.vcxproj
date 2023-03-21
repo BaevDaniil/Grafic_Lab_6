@@ -149,7 +149,7 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="C:\Users\Daniil\Desktop\CompGraphLab_course4-develop\Lab6\D3DInclude.h" />
+    <ClInclude Include="D3DInclude.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="DDSTextureLoader11.h" />
     <ClInclude Include="framework.h" />
@@ -172,7 +172,7 @@
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="C:\Users\Daniil\Desktop\CompGraphLab_course4-develop\Lab6\D3DInclude.cpp" />
+    <ClCompile Include="D3DInclude.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="DDSTextureLoader11.cpp" />
     <ClCompile Include="imgui.cpp" />

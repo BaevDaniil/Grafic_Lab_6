@@ -84,7 +84,7 @@
     <ClInclude Include="imstb_truetype.h">
       <Filter>imgui\headers</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Daniil\Desktop\CompGraphLab_course4-develop\Lab6\D3DInclude.h">
+    <ClInclude Include="D3DInclude.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="renderer.h">
@@ -137,7 +137,7 @@
     <ClCompile Include="imgui_widgets.cpp">
       <Filter>imgui\source</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Daniil\Desktop\CompGraphLab_course4-develop\Lab6\D3DInclude.cpp">
+    <ClCompile Include="D3DInclude.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="renderer.cpp">

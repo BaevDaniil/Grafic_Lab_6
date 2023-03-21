@@ -156,13 +156,13 @@
     <Image Include="GraficApp.ico">
       <Filter>Файлы ресурсов</Filter>
     </Image>
-    <Image Include="textures\texture.dds">
-      <Filter>Файлы ресурсов\textures</Filter>
-    </Image>
     <Image Include="textures\156.dds">
       <Filter>Файлы ресурсов\textures</Filter>
     </Image>
     <Image Include="textures\156_norm.dds">
+      <Filter>Файлы ресурсов\textures</Filter>
+    </Image>
+    <Image Include="textures\texture.dds">
       <Filter>Файлы ресурсов\textures</Filter>
     </Image>
   </ItemGroup>

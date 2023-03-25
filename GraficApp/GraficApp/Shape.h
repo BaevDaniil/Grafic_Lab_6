@@ -26,7 +26,7 @@ public:
     Shape(const Shape&) = delete;
     Shape(const Shape&&) = delete;
 
-    ~Shape() 
+    virtual ~Shape() 
     {
         SafeRelease(pVertexBuffer_);
         SafeRelease(pIndexBuffer_);

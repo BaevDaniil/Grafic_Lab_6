@@ -151,6 +151,7 @@ HRESULT Cube::createTextures(ID3D11Device* pDevice) {
     if (SUCCEEDED(result))
     {
         resources_.push_back(m_pTextureView[0]);
+
         resources_.push_back(m_pTextureView[1]);
     }
 

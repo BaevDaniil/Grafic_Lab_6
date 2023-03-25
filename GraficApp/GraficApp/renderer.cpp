@@ -46,9 +46,18 @@ void Renderer::CleanAll()
     SafeRelease(pDepthBuffer_);
     SafeRelease(pDepthBufferDSV_);
     SafeRelease(pBlendState_);
+    SafeRelease(pViewMatrixBuffer_);
 
     SafeRelease(pDepthState_[0]);
     SafeRelease(pDepthState_[1]);
+
+    for (auto shape : shapes_) {
+        delete shape;
+        shape = nullptr;
+    }
+
+    //delete skybox_;
+    skybox_.~SkyBox();
 
     if (pCamera_) {
         delete pCamera_;
@@ -57,7 +66,7 @@ void Renderer::CleanAll()
     if (pInput_) {
         delete pInput_;
         pInput_ = NULL;
-}
+    }
 
 #ifdef _DEBUG
     if (pDevice_ != NULL) {
@@ -234,7 +243,7 @@ HRESULT Renderer::InitScene() {
     if (SUCCEEDED(result))
         skybox_.createShaders(pDevice_);
     if (SUCCEEDED(result))
-        skybox_.setRasterizerState(pDevice_, D3D11_CULL_BACK);
+        skybox_.setRasterizerState(pDevice_, D3D11_CULL_NONE);
     if (SUCCEEDED(result))
         skybox_.createTextures(pDevice_);
 

@@ -151,7 +151,6 @@ HRESULT Cube::createTextures(ID3D11Device* pDevice) {
     if (SUCCEEDED(result))
     {
         resources_.push_back(m_pTextureView[0]);
-
         resources_.push_back(m_pTextureView[1]);
     }
 
@@ -172,7 +171,7 @@ HRESULT Cube::update(ID3D11DeviceContext* m_pDeviceContext) {
 void Cube::draw(ID3D11Buffer* pViewMatrixBuffer, ID3D11DeviceContext* pDeviceContext)
 {
     pDeviceContext->RSSetState(rasterizerState_);
-    pDeviceContext->PSSetShaderResources(0, 1, resources_.data());
+    pDeviceContext->PSSetShaderResources(0, 2, resources_.data());
 
     pDeviceContext->IASetIndexBuffer(pIndexBuffer_, DXGI_FORMAT_R16_UINT, 0);
     ID3D11Buffer* vertexBuffers[] = { pVertexBuffer_ };

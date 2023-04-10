@@ -87,13 +87,22 @@
     <ClInclude Include="D3DInclude.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="renderer.h">
-      <Filter>Исходные файлы</Filter>
-    </ClInclude>
     <ClInclude Include="LightCalc.hlsli">
       <Filter>Файлы ресурсов\shaders</Filter>
     </ClInclude>
-    <ClInclude Include="SceneMatrixBuffer.hlsli">
+    <ClInclude Include="Scene.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Constant.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Frustum.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Buffers.hlsli">
       <Filter>Файлы ресурсов\shaders</Filter>
     </ClInclude>
   </ItemGroup>
@@ -143,6 +152,12 @@
     <ClCompile Include="renderer.cpp">
       <Filter>Файлы заголовков</Filter>
     </ClCompile>
+    <ClCompile Include="Frustum.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GraficApp.rc">
@@ -162,15 +177,18 @@
     <Image Include="textures\156_norm.dds">
       <Filter>Файлы ресурсов\textures</Filter>
     </Image>
-    <Image Include="textures\texture.dds">
+    <Image Include="textures\cube.dds">
+      <Filter>Файлы ресурсов\textures</Filter>
+    </Image>
+    <Image Include="textures\198.dds">
       <Filter>Файлы ресурсов\textures</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="PixelShader.hlsl">
+    <FxCompile Include="PS.hlsl">
       <Filter>Файлы ресурсов\shaders</Filter>
     </FxCompile>
-    <FxCompile Include="VertexShader.hlsl">
+    <FxCompile Include="VS.hlsl">
       <Filter>Файлы ресурсов\shaders</Filter>
     </FxCompile>
     <FxCompile Include="CubeMapPS.hlsl">
@@ -185,10 +203,22 @@
     <FxCompile Include="TPS.hlsl">
       <Filter>Файлы ресурсов\shaders</Filter>
     </FxCompile>
+    <FxCompile Include="PostEffectPS.hlsl">
+      <Filter>Файлы ресурсов\shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="PostEffectVS.hlsl">
+      <Filter>Файлы ресурсов\shaders</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini">
       <Filter>imgui\resource</Filter>
+    </None>
+    <None Include="TransBuffers.hlsli">
+      <Filter>Файлы ресурсов\shaders</Filter>
+    </None>
+    <None Include="Light.hlsli">
+      <Filter>Файлы ресурсов\shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

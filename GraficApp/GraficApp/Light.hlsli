@@ -1,12 +1,15 @@
+#pragma once
+
+#include "Constant.h"
+
 struct LIGHT {
     float4 lightPos;
     float4 lightColor;
 };
 
-cbuffer SceneMatrixBuffer : register (b1) {
-    float4x4 viewProjectionMatrix;
+cbuffer LightBuffer : register (b2) {
     float4 cameraPos;
     int4 lightParams;
-    LIGHT lights[10];
+    LIGHT lights[MAX_LIGHT];
     float4 ambientColor;;
 };

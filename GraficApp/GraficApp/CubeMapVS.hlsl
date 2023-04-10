@@ -14,7 +14,7 @@ struct VS_INPUT {
 
 struct PS_INPUT {
     float4 position : SV_POSITION;
-    float3 localPos : POSITION1;
+    float3 localPos : POSITION;
 };
 
 PS_INPUT main(VS_INPUT input) {

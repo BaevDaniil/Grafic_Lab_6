@@ -1,4 +1,6 @@
-#include "SceneMatrixBuffer.hlsli"
+#pragma once
+
+#include "Light.hlsli"
 
 float3 CalculateColor(in float3 objColor, in float3 objNormal, in float3 pos, in float shine, in bool transparent) {
     float3 finalColor = float3(0, 0, 0);

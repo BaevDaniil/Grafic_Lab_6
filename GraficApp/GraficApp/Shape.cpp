@@ -73,27 +73,6 @@ HRESULT Cube::createGeometry(ID3D11Device* pDevice)
 
         result = pDevice->CreateBuffer(&desc, &data, &pIndexBuffer_);
     }
-    if (SUCCEEDED(result)) {
-        D3D11_BUFFER_DESC desc = {};
-        desc.ByteWidth = sizeof(WorldMatrixBuffer);
-        desc.Usage = D3D11_USAGE_DEFAULT;
-        desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-        desc.CPUAccessFlags = 0;
-        desc.MiscFlags = 0;
-        desc.StructureByteStride = 0;
-
-        WorldMatrixBuffer worldMatrixBuffer;
-        worldMatrixBuffer.worldMatrix = DirectX::XMMatrixIdentity();
-        worldMatrixBuffer.shine = XMFLOAT4(300.0f, 0.0f, 0.0f, 0.0f);
-
-        D3D11_SUBRESOURCE_DATA data;
-        data.pSysMem = &worldMatrixBuffer;
-        data.SysMemPitch = sizeof(worldMatrixBuffer);
-        data.SysMemSlicePitch = 0;
-
-        result = pDevice->CreateBuffer(&desc, &data, &pWorldMatrixBuffer_);
-    }
-
     return result;
 }
 
@@ -133,31 +112,13 @@ HRESULT Cube::createShaders(ID3D11Device* pDevice) {
         result = pDevice->CreateInputLayout(InputDesc, numElements, vertexShaderBuffer->GetBufferPointer(), vertexShaderBuffer->GetBufferSize(), &pInputLayout_);
     }
 
-    SafeRelease(vertexShaderBuffer);
-    SafeRelease(pixelShaderBuffer);
+    SAFE_RELEASE(vertexShaderBuffer);
+    SAFE_RELEASE(pixelShaderBuffer);
 
     return result;
 }
 
-HRESULT Cube::createTextures(ID3D11Device* pDevice) {
-    ID3D11ShaderResourceView* m_pTextureView[2];
-
-    HRESULT result = CreateDDSTextureFromFile(pDevice, L"textures/156.dds", nullptr, &m_pTextureView[0]);
-
-    if (SUCCEEDED(result)) {
-        result = CreateDDSTextureFromFile(pDevice, L"textures/156_norm.dds", nullptr, &m_pTextureView[1]);
-    }
-
-    if (SUCCEEDED(result))
-    {
-        resources_.push_back(m_pTextureView[0]);
-        resources_.push_back(m_pTextureView[1]);
-    }
-
-    return result;
-}
-
-HRESULT Cube::update(ID3D11DeviceContext* m_pDeviceContext) {
+/*HRESULT Cube::update(ID3D11DeviceContext* m_pDeviceContext) {
     worldMatrix_ = DirectX::XMMatrixIdentity();
     worldMatrix_ = rotateMatrix_ * scaleMatrix_ * translateMatrix_;
     WorldMatrixBuffer worldMatrixBuffer;
@@ -166,12 +127,11 @@ HRESULT Cube::update(ID3D11DeviceContext* m_pDeviceContext) {
     m_pDeviceContext->UpdateSubresource(pWorldMatrixBuffer_, 0, nullptr, &worldMatrixBuffer, 0, 0);
 
     return S_OK;
-}
+}*/
 
-void Cube::draw(ID3D11Buffer* pViewMatrixBuffer, ID3D11DeviceContext* pDeviceContext)
-{
-    pDeviceContext->RSSetState(rasterizerState_);
-    pDeviceContext->PSSetShaderResources(0, 2, resources_.data());
+void Cube::setGeometry(ID3D11DeviceContext* pDeviceContext) {
+    //pDeviceContext->RSSetState(rasterizerState_);
+    //pDeviceContext->PSSetShaderResources(0, 2, resources_.data());
 
     pDeviceContext->IASetIndexBuffer(pIndexBuffer_, DXGI_FORMAT_R16_UINT, 0);
     ID3D11Buffer* vertexBuffers[] = { pVertexBuffer_ };
@@ -180,14 +140,14 @@ void Cube::draw(ID3D11Buffer* pViewMatrixBuffer, ID3D11DeviceContext* pDeviceCon
     pDeviceContext->IASetVertexBuffers(0, 1, vertexBuffers, strides, offsets);
     pDeviceContext->IASetInputLayout(pInputLayout_);
     pDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-    pDeviceContext->VSSetConstantBuffers(0, 1, &pWorldMatrixBuffer_);
-    pDeviceContext->VSSetConstantBuffers(1, 1, &pViewMatrixBuffer);
+    //pDeviceContext->VSSetConstantBuffers(0, 1, &pWorldMatrixBuffer_);
+    //pDeviceContext->VSSetConstantBuffers(1, 1, &pViewMatrixBuffer);
     pDeviceContext->VSSetShader(pVertexShader_, nullptr, 0);
     pDeviceContext->PSSetShader(pPixelShader_, nullptr, 0);
-    pDeviceContext->PSSetConstantBuffers(1, 1, &pViewMatrixBuffer);
-    pDeviceContext->DrawIndexed(36, 0, 0);
-    pDeviceContext->VSSetConstantBuffers(0, 1, &pWorldMatrixBuffer_);
-    pDeviceContext->DrawIndexed(36, 0, 0);
+    //pDeviceContext->PSSetConstantBuffers(1, 1, &pViewMatrixBuffer);
+    //pDeviceContext->DrawIndexed(36, 0, 0);
+    //pDeviceContext->VSSetConstantBuffers(0, 1, &pWorldMatrixBuffer_);
+    //pDeviceContext->DrawIndexed(36, 0, 0);
 }
 
 HRESULT Rect::createGeometry(ID3D11Device* m_pDevice)
@@ -232,7 +192,7 @@ HRESULT Rect::createGeometry(ID3D11Device* m_pDevice)
         result = m_pDevice->CreateBuffer(&desc, &data, &pIndexBuffer_);
     }
 
-    if (SUCCEEDED(result)) {
+    /*if (SUCCEEDED(result)) {
         desc = {};
         desc.ByteWidth = sizeof(WorldMatrixBuffer);
         desc.Usage = D3D11_USAGE_DEFAULT;
@@ -251,7 +211,7 @@ HRESULT Rect::createGeometry(ID3D11Device* m_pDevice)
         data.SysMemSlicePitch = 0;
 
         result = m_pDevice->CreateBuffer(&desc, &data, &pWorldMatrixBuffer_);
-    }
+    }*/
     return result;
 }
 
@@ -286,13 +246,13 @@ HRESULT Rect::createShaders(ID3D11Device* m_pDevice)
         result = m_pDevice->CreateInputLayout(InputDescT, numElements, vertexShaderBuffer->GetBufferPointer(), vertexShaderBuffer->GetBufferSize(), &pInputLayout_);
     }
 
-    SafeRelease(vertexShaderBuffer);
-    SafeRelease(pixelShaderBuffer);
+    SAFE_RELEASE(vertexShaderBuffer);
+    SAFE_RELEASE(pixelShaderBuffer);
 
     return result;
 }
 
-HRESULT Rect::update(ID3D11DeviceContext* m_pDeviceContext) {
+/*HRESULT Rect::update(ID3D11DeviceContext* m_pDeviceContext) {
     worldMatrix_ = DirectX::XMMatrixIdentity();
     worldMatrix_ = rotateMatrix_ * scaleMatrix_ * translateMatrix_;
     WorldMatrixBuffer worldMatrixBuffer;
@@ -301,9 +261,9 @@ HRESULT Rect::update(ID3D11DeviceContext* m_pDeviceContext) {
     m_pDeviceContext->UpdateSubresource(pWorldMatrixBuffer_, 0, nullptr, &worldMatrixBuffer, 0, 0);
     
     return S_OK;
-}
+}*/
 
-void Rect::draw(ID3D11Buffer* pViewMatrixBuffer, ID3D11DeviceContext* pDeviceContext)
+/*void Rect::draw(ID3D11Buffer* pViewMatrixBuffer, ID3D11DeviceContext* pDeviceContext)
 {
     pDeviceContext->RSSetState(rasterizerState_);
 
@@ -322,7 +282,7 @@ void Rect::draw(ID3D11Buffer* pViewMatrixBuffer, ID3D11DeviceContext* pDeviceCon
 
     pDeviceContext->VSSetConstantBuffers(0, 1, &pWorldMatrixBuffer_);
     pDeviceContext->DrawIndexed(6, 0, 0);
-}
+}*/
 
 void Rect::SetColor(COLORREF color, ID3D11DeviceContext* m_pDeviceContext) {
     color_ = color;
@@ -340,7 +300,7 @@ void Rect::SetColor(COLORREF color, ID3D11DeviceContext* m_pDeviceContext) {
     }
 }
 
-HRESULT Shape::setRasterizerState(ID3D11Device* m_pDevice, D3D11_CULL_MODE cullMode)
+/*HRESULT Shape::setRasterizerState(ID3D11Device* m_pDevice, D3D11_CULL_MODE cullMode)
 {
     HRESULT result;
     D3D11_RASTERIZER_DESC rasterizerDesc;
@@ -351,9 +311,9 @@ HRESULT Shape::setRasterizerState(ID3D11Device* m_pDevice, D3D11_CULL_MODE cullM
     result = m_pDevice->CreateRasterizerState(&rasterizerDesc, &rasterizerState_);
 
     return result;
-}
+}*/
 
-void Shape::translate(DirectX::XMMATRIX translateMatrix)
+/*void Shape::translate(DirectX::XMMATRIX translateMatrix)
 {
     this->translateMatrix_ = translateMatrix;
 }
@@ -366,4 +326,4 @@ void Shape::scale(DirectX::XMMATRIX scaleMatrix)
 void Shape::rotate(DirectX::XMMATRIX rotateMatrix)
 {
     this->rotateMatrix_ = rotateMatrix;
-}
+}*/

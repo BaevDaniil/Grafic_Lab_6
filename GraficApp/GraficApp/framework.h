@@ -31,4 +31,4 @@
 
 using namespace DirectX;
 
-#define SafeRelease(A) if ((A) != NULL) { (A)->Release(); (A) = NULL; }
+#define SAFE_RELEASE(A) if ((A) != NULL) { (A)->Release(); (A) = NULL; }

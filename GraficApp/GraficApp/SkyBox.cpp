@@ -175,8 +175,8 @@ HRESULT SkyBox::createShaders(ID3D11Device* m_pDevice) {
         result = m_pDevice->CreateInputLayout(SkyboxInputDesc, numElements, vertexShaderBuffer->GetBufferPointer(), vertexShaderBuffer->GetBufferSize(), &pInputLayout_);
     }
 
-    SafeRelease(vertexShaderBuffer);
-    SafeRelease(pixelShaderBuffer);
+    SAFE_RELEASE(vertexShaderBuffer);
+    SAFE_RELEASE(pixelShaderBuffer);
 
     return result;
 }
@@ -184,7 +184,7 @@ HRESULT SkyBox::createShaders(ID3D11Device* m_pDevice) {
 HRESULT SkyBox::createTextures(ID3D11Device* m_pDevice) {
     ID3D11ShaderResourceView* m_pTextureView;
 
-    HRESULT result = CreateDDSTextureFromFileEx(m_pDevice, L"textures/texture.dds",
+    HRESULT result = CreateDDSTextureFromFileEx(m_pDevice, L"textures/cube.dds",
             0, D3D11_USAGE_DEFAULT, D3D11_BIND_SHADER_RESOURCE, 0, D3D11_RESOURCE_MISC_TEXTURECUBE,
             DDS_LOADER_DEFAULT, nullptr, &m_pTextureView);
 

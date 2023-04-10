@@ -37,17 +37,17 @@ public:
     SkyBox(const SkyBox&&) = delete;
 
     ~SkyBox() {
-        SafeRelease(pVertexBuffer_);
-        SafeRelease(pIndexBuffer_);
-        SafeRelease(pInputLayout_);
-        SafeRelease(pVertexShader_);
-        SafeRelease(pRasterizerState_);
-        SafeRelease(pPixelShader_);
-        SafeRelease(pWorldMatrixBuffer_);
-        SafeRelease(pViewMatrixBuffer_);
+        SAFE_RELEASE(pVertexBuffer_);
+        SAFE_RELEASE(pIndexBuffer_);
+        SAFE_RELEASE(pInputLayout_);
+        SAFE_RELEASE(pVertexShader_);
+        SAFE_RELEASE(pRasterizerState_);
+        SAFE_RELEASE(pPixelShader_);
+        SAFE_RELEASE(pWorldMatrixBuffer_);
+        SAFE_RELEASE(pViewMatrixBuffer_);
 
         for (auto resource : resources_)
-            SafeRelease(resource);
+            SAFE_RELEASE(resource);
     }
 
     HRESULT createGeometry(ID3D11Device* m_pDevice);
